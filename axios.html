@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="city">
+        <button @click="get_weather">点击获取天气</button>
+    </div>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                city:"",
+            },
+            methods:{
+                get_weather(){
+                    // http://wthrcdn.etouch.cn/weather_mini?city=城市名称
+                    axios.get("http://wthrcdn.etouch.cn/weather_mini?city="+this.city)
+                        .then(response=>{
+                            console.log(response);
+
+                        }).catch(error=>{
+                            console.log(error.response)
+                    });
+                  // 上面的参数写法,也可以是下面这种格式:
+                  // axios.get("http://wthrcdn.etouch.cn/weather_mini",{
+                  //     // get请求的附带参数
+                  //     params:{
+                  //         "city":"广州",
+                  //     }
+                  // }).then(response=>{
+                  //     console.log(response.data);  // 获取接口数据
+                  // }).catch(error=>{
+                  //     console.log(error.response); // 获取错误信息
+                  // })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
